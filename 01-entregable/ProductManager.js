@@ -1,3 +1,10 @@
+const pattern = {
+  title: /^([a-zA-ZáÁéÉíÍóÓúÚñÑÜü]([0-9\s]+)?)+$/,
+  description: /^[a-zA-ZáÁéÉíÍóÓúÚñÑÜü].+$/,
+  price: /^-?(0|[1-9]\d*)(\.\d+)?$/,
+  stock: /^\d+$/,
+};
+
 class ProductManager {
   static productId = 5000;
 
@@ -26,12 +33,6 @@ class ProductManager {
 
   validateProduct({ title, description, price, thumbnail, code, stock }) {
     /* validates each property of the given object*/
-    const pattern = {
-      title: /^([a-zA-ZáÁéÉíÍóÓúÚñÑÜü]([0-9\s]+)?)+$/,
-      description: /^[a-zA-ZáÁéÉíÍóÓúÚñÑÜü].+$/,
-      price: /^-?(0|[1-9]\d*)(\.\d+)?$/,
-      stock: /^\d+$/,
-    };
     if (!title || !description || !price || !thumbnail || !code || !stock)
       throw new Error("Not all required fields were provided");
     if (!pattern.title.test(title))
