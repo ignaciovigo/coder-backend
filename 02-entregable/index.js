@@ -10,7 +10,8 @@ const productToUp = {
 };
 
 const instance1 = new ProductManager();
-console.log(instance1.getProducts);
+console.log(typeof instance1.getProducts);
+
 instance1.addProduct(
   "Samsung J5",
   "Empezamos a probar",
@@ -19,7 +20,9 @@ instance1.addProduct(
   "1234dkj",
   29
 );
-console.log(instance1.getProducts);
+
+console.log(instance1.getProducts)
+
 console.log("Producto by ID: ", instance1.getProductById("ingresar id"));
 console.log("Obtener productos: ", instance1.getProducts);
 instance1.updateProduct("ingresar id", productToUp);

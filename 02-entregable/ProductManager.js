@@ -12,15 +12,13 @@ class ProductManager {
   #filePath;
   #products;
   constructor() {
-    this.#products = [];
     this.#filePath = "./products.json";
   }
 
   get getProducts() {
     /* returns the products list */
     let productsJson = this.checkFile();
-    this.#products = JSON.parse(productsJson);
-    return this.#products;
+    return JSON.parse(productsJson);
   }
 
   checkFile() {
@@ -38,8 +36,8 @@ class ProductManager {
      otherwise it returns an error not found
     */
     let productsJson = this.checkFile();
-    this.#products = JSON.parse(productsJson);
-    const product = this.#products.find((e) => e.id === id);
+    let productsParsed = JSON.parse(productsJson);
+    const product = productsParsed.find((e) => e.id === id);
     if (!product) throw Error("Product not found");
     return product;
   }
@@ -73,33 +71,34 @@ class ProductManager {
       throw new Error("The product code provided already exists");
     product.id = crypto.randomUUID().slice(0, 7);
     let productsJson = this.checkFile();
-    this.#products = JSON.parse(productsJson);
-    this.#products.push(product);
-    fs.writeFileSync(this.#filePath, JSON.stringify(this.#products, null, 2));
+    let productsParsed = JSON.parse(productsJson);
+    productsParsed.push(product);
+    fs.writeFileSync(this.#filePath, JSON.stringify(productsParsed, null, 2));
   }
 
   updateProduct(idGiven, productToUpdate) {
     let { id } = this.getProductById(idGiven);
     this.validateProduct(productToUpdate);
-    let index = this.#products.findIndex((e) => e.id === idGiven);
+    let productsJson = this.checkFile()
+    let productsParsed = JSON.parse(productsJson)
+    let index = productsParsed.findIndex((e) => e.id === idGiven);
     if (index >= 0) {
-      this.#products[index] = { ...productToUpdate, id };
-      fs.writeFileSync(this.#filePath, JSON.stringify(this.#products, null, 2));
+      productsParsed[index] = { ...productToUpdate, id };
+      fs.writeFileSync(this.#filePath, JSON.stringify(productsParsed, null, 2));
     }
   }
 
   deleteProduct(id) {
     let productsJson = this.checkFile();
-    this.#products = JSON.parse(productsJson);
-    let index = this.#products.findIndex((e) => e.id === id);
+    let productsParsed = JSON.parse(productsJson);
+    let index = productsParsed.findIndex((e) => e.id === id);
     if (index === -1) throw new Error("The id provided was not found");
-    this.#products.splice(index, 1);
-    fs.writeFileSync(this.#filePath, JSON.stringify(this.#products, null, 2));
+    productsParsed.splice(index, 1);
+    fs.writeFileSync(this.#filePath, JSON.stringify(productsParsed, null, 2));
   }
   
   deleteAll() {
     this.checkFile();
-    this.#products = [];
     fs.writeFileSync(this.#filePath, "");
   }
 }
