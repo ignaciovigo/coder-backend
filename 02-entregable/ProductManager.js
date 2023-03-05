@@ -10,7 +10,6 @@ const pattern = {
 
 class ProductManager {
   #filePath;
-  #products;
   constructor() {
     this.#filePath = "./products.json";
   }
@@ -44,8 +43,8 @@ class ProductManager {
   isCodeExist(code) {
     /* returns a boolean if the given code exists in the products list */
     let usersJson = this.checkFile();
-    this.#products = JSON.parse(usersJson);
-    return this.#products.some((e) => e.code === code);
+    let productsParsed = JSON.parse(usersJson);
+    return productsParsed.some((e) => e.code === code);
   }
 
   validateProduct({ title, description, price, thumbnail, code, stock }) {
