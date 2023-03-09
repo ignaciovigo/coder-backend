@@ -1,0 +1,92 @@
+[
+    {
+        "title": "Rocket launcher",
+        "description": "Launch your rockets with style!",
+        "price": 10.99,
+        "thumbnail": "http://example.com/images/rocket_launcher.jpg",
+        "code": "rocket-launcher",
+        "stock": 1,
+        "id": "1"
+    },
+    {
+        "title": "Shield generator",
+        "description": "Protect yourself from the dangers of the galaxy!",
+        "price": 14.99,
+        "thumbnail": "http://example.com/images/shield_generator.jpg",
+        "code": "shield-generator",
+        "stock": 64,
+        "id": "2"
+    },
+    {
+        "title": "Sniper rifle",
+        "description": "A sniper rifle for the most discerning of assassins...",
+        "price": 14.99,
+        "thumbnail": "http://example.com/images/sniper_rifle.jpg",
+        "code": "sniper-rifle",
+        "stock": 75,
+        "id": "3"
+    },
+    {
+        "title": "Dune buggy",
+        "description": "Cruise the desert in style!",
+        "price": 19.99,
+        "thumbnail": "http://example.com/images/dune_buggy.jpg",
+        "code": "dune-buggy",
+        "stock": 66,
+        "id": "4"
+    },
+    {
+        "title": "Laser gun",
+        "description": "Zap your enemies with a laser beam!",
+        "price": 19.99,
+        "thumbnail": "http://example.com/images/laser_gun.jpg",
+        "code": "laser-gun",
+        "stock": 86,
+        "id": "5"
+    },
+    {
+        "title": "Space suit",
+        "description": "Explore the galaxy in comfort and style!",
+        "price": 29.99,
+        "thumbnail": "http://example.com/images/space_suit.jpg",
+        "code": "space-suit",
+        "stock": 42,
+        "id": "6"
+    },
+    {
+        "title": "Fighter ship",
+        "description": "Blast off into the stars!",
+        "price": 39.99,
+        "thumbnail": "http://example.com/images/fighter_ship.jpg",
+        "code": "fighter-ship",
+        "stock": 45,
+        "id": "7"
+    },
+    {
+        "title": "Cockpit",
+        "description": "The ultimate space cockpit!",
+        "price": 39.99,
+        "thumbnail": "http://example.com/images/cockpit.jpg",
+        "code": "cockpit",
+        "stock": 14,
+        "id": "8"
+    },
+    {
+        "title": "Space station",
+        "description": "The ultimate space station!",
+        "price": 59.99,
+        "thumbnail": "http://example.com/images/space_station.jpg",
+        "code": "space-station",
+        "stock": 23,
+        "id": "9"
+    },
+    {
+        "title": "Galactic map",
+        "description": "A galactic map to explore the universe!",
+        "price": 19.99,
+        "thumbnail": "http://example.com/images/galactic_map.jpg",
+        "code": "space-map",
+        "stock": 35,
+        "id": "10"
+    }
+]
