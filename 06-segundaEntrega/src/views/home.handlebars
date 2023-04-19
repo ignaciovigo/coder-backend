@@ -1,0 +1,28 @@
+<section class="bg-gradient text-white gap-5">
+    <h3 class="text-6xl text-white">Products</h3>
+    {{#if arrProducts}}
+    <div>
+        <ul id="ls-products" class="list-none ls-products">
+            {{#each arrProducts}}
+            <li class="rounded bg-slate-600 p-1">
+                <p class="text-blue-300 flex flex-col items-center">{{this.title}} <span class="text-md">ID: {{this.id}}</span></p>
+                {{#if this.thumbnails.length}}
+                <img src={{this.thumbnails.[0]}} alt="image of {{this.title}}">
+                {{/if}}
+                <div class="text-sm">
+                    <p class="rounded bg-slate-800 p-2">{{this.description}}</p>
+                    <p>Category: {{this.category}}</p>
+                    <p>Code: {{this.code}}</p>
+                    <div class="flex justify-evenly">
+                        <p class="" >Price: $ {{this.price}}</p>
+                        <p>Stock: {{this.stock}}</p>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+    {{else}}
+    <h3 class="text-3xl text-blue-300">There's not products!</h3>
+    {{/if}}
+</section>
