@@ -1,0 +1,40 @@
+<section class="bg-gradient text-white gap-5">
+    <h3 class="text-6xl text-white">Products</h3>
+    {{#if payload}}
+    <div>
+        <ul id="ls-products" class="list-none ls-products">
+            {{#each payload}}
+            <li class="rounded bg-slate-600 p-1">
+                <p class="text-blue-300 flex flex-col items-center flex-wrap">{{this.title}}</p>
+                {{#if this.thumbnails.length}}
+                <img src={{this.thumbnails.[0]}} alt="image of {{this.title}}">
+                {{/if}}
+                <div class="text-sm p-2 flex flex-col">
+                    <p class="rounded bg-slate-800 p-2">{{this.description}}</p>
+                    <p>Category: {{this.category}}</p>
+                    <p>Code: {{this.code}}</p>
+                    <p>Stock: {{this.stock}}</p>
+                    <p>Price: $ {{this.price}}</p>
+                    <form class="flex flex-col gap-2" id="{{this.id}}">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" min="1" max="50" value="1" name="quantity" id="quantity" pattern="^[1-9]|[1-4][0-9]|50$" class="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent" placeholder="Enter a number">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                            Add to Cart
+                        </button>
+                    </form>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+        <div class="flex justify-evenly items-center mt-3">
+            <a href="{{prevLink}}" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded">Prev Page</a>
+                <p class="text-rose-500 font-bold">Page {{page}} of {{totalPages}}</p>
+            <a href="{{nextLink}}" class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded">Next Page</a>
+        </div>
+    </div>
+    {{else}}
+    <h3 class="text-3xl text-blue-300">There's not products!</h3>
+    {{/if}}
+</section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src={{scriptPath}}></script>
