@@ -64,7 +64,7 @@ class ProductManager {
 
   async addProduct (newProduct) {
     /* adds the object received to the products list
-     once its been validated, also adds it an id */
+     once its been validated */
     try {
       this.validateProduct(newProduct)
       const result = await productModel.create(newProduct)
@@ -76,6 +76,7 @@ class ProductManager {
   }
 
   async updateProduct (idGiven, productToUpdate) {
+    // Update a product by id
     try {
       const result = await productModel.updateOne({ _id: idGiven }, productToUpdate)
       return result
@@ -85,6 +86,7 @@ class ProductManager {
   }
 
   async deleteProductById (id) {
+    // delete product by id
     try {
       const result = await productModel.deleteOne({ _id: id })
       return result

@@ -22,9 +22,6 @@ router.get('/products', async (req, res) => {
     res.status(400).send({ status: 'error', message: error.message })
   }
 })
-router.get('/realtimeproducts', async (req, res) => {
-  res.render('realTimeProducts', { scriptPath: '/js/index.js', style: '/css/index.css' })
-})
 
 router.get('/carts/:cid', async (req, res) => {
   try {
@@ -40,4 +37,9 @@ router.get('/carts/:cid', async (req, res) => {
     res.status(400).send({ status: 'error', message: error.message })
   }
 })
+
+// router.get('/realtimeproducts', async (req, res) => {
+//   res.render('realTimeProducts', { scriptPath: '/js/index.js', style: '/css/index.css' })
+// })
+
 export default router

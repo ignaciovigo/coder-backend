@@ -5,7 +5,7 @@ import routerViews from './routes/views.routes.js'
 import { __dirname } from './utils.js'
 import handlebars from 'express-handlebars'
 import './db.js'
-import SocketServer from './services/SocketServer.js'
+// import SocketServer from './services/SocketServer.js'
 
 const app = express()
 const PORT = 8080
@@ -21,10 +21,14 @@ app.set('view engine', 'handlebars')
 app.use('/api/products', routerProducts)
 app.use('/api/carts', routerCarts)
 app.use('/', routerViews)
-
-const httpServer = app.listen(PORT, () => {
+// Running sv
+app.listen(PORT, () => {
   console.log(`server running on port : ${PORT}`)
 })
+
+// const httpServer = app.listen(PORT, () => {
+//   console.log(`server running on port : ${PORT}`)
+// })
 // Socket Server
-const io = new SocketServer(httpServer)
-io.enableSockets()
+// const io = new SocketServer(httpServer)
+// io.enableSockets()

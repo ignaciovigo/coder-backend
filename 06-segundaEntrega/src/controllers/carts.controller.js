@@ -1,5 +1,5 @@
 import { cartManager } from '../services/CartManager.service.js'
-
+// POST /api/carts/
 export async function createCart (req, res) {
   try {
     const result = await cartManager.createCart()
@@ -13,7 +13,7 @@ export async function createCart (req, res) {
     res.status(500).send({ status: 'error', message: err.message })
   }
 }
-
+// GET /api/carts/:cid
 export async function getCartById (req, res) {
   try {
     const { cid } = req.params
@@ -29,7 +29,7 @@ export async function getCartById (req, res) {
     res.status(500).send({ status: 'error', message: err.message })
   }
 }
-
+// PUT /api/carts/:cid/product/:pid
 export async function updateProductInCart (req, res) {
   try {
     const cid = req.params.cid
@@ -46,7 +46,7 @@ export async function updateProductInCart (req, res) {
     res.status(500).send({ status: 'error', message: err.message })
   }
 }
-
+// PUT /api/carts/:cid
 export async function addProductstoCart (req, res) {
   try {
     const { cid } = req.params
@@ -59,7 +59,7 @@ export async function addProductstoCart (req, res) {
     res.status(500).send({ status: 'error', message: error.message })
   }
 }
-
+// DELETE /api/carts/:cid/product/:pid
 export async function deleteProductById (req, res) {
   try {
     const cid = req.params.cid
@@ -74,7 +74,7 @@ export async function deleteProductById (req, res) {
     res.status(500).send({ status: 'error', message: err.message })
   }
 }
-
+// DELETE /api/carts/:cid
 export async function deleteAllproductsInCart (req, res) {
   try {
     const cid = req.params.cid

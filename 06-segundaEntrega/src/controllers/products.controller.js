@@ -31,7 +31,7 @@ export async function getProductById (req, res) {
     res.status(406).send({ status: 'error', message: err.message })
   }
 }
-// controler for POST /api/products
+// controller for POST /api/products
 export async function addProduct (req, res) {
   try {
     const newProduct = req.body
@@ -65,7 +65,7 @@ export async function deleteProduct (req, res) {
     const result = await productManager.deleteProductById(pid)
     if (!result) throw new Error('Product not found')
     if (result.deletedCount === 1) res.status(200).send({ status: 'success', message: `The product with id: ${pid} was deleted` })
-    if (result.acknowledged && result.deletedCount === 0) res.status(202).send({ status: 'info', message:`doesnt exist product with id : ${pid}` })
+    if (result.acknowledged && result.deletedCount === 0) res.status(202).send({ status: 'info', message: `doesnt exist product with id: ${pid}` })
     if (!result.acknowledged) throw Error('The data to perform the query is incorrect')
   } catch (error) {
     res.status(406).send({ status: 'error', message: error.message })
