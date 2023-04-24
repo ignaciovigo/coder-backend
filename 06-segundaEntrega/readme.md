@@ -66,9 +66,7 @@ show all products of the data base and accepts parameters as limit, sort ('asc' 
 -   PUT http://localhost:8080/api/products/:pid
 >body example
 >```
->{
->    "title": "Son Goku"
->}
+>
 >```
 
 ## Deletes a specific product by id
