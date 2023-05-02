@@ -1,0 +1,52 @@
+<nav class="bg-slate-800 text-gray-100">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <a href="http://localhost:8080/user/profile"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Profile</a>
+                <a href="http://localhost:8080/carts/{{cartId}}"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Your
+                    cart</a>
+                <a href="http://localhost:8080/products"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Products</a>
+            </div>
+            <button class="bg-slate-500 hover:bg-gray-100 hover:text-gray-900 p-2 rounded-full" data-btn="logout" id={{cartId}}>
+                Log out
+            </button>
+        </div>
+    </div>
+</nav>
+<div class="bg-slate-700 h-screen">
+    <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+
+            <div class="px-4 py-5 sm:px-6 flex">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Profile</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Profile information</p>
+                </div>
+                <p class="m-auto max-w-2xl text-lg text-gray-900 font-bold">
+                    Welcome back!
+                </p>
+            </div>
+            <div class="border-t border-gray-200">
+                <dl>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">Name</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{firstName}} {{lastName}}</dd>
+                    </div>
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">Email</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{email}}</dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">Age</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{age}}</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src={{scriptPath2}}></script>

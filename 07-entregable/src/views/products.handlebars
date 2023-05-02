@@ -1,0 +1,71 @@
+<nav class="bg-slate-800 text-gray-100">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <a href="http://localhost:8080/user/profile"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Profile</a>
+                <a href="http://localhost:8080/carts/{{cartId}}"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Your
+                    cart</a>
+                <a href="http://localhost:8080/products"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Products</a>
+            </div>
+                <button class="bg-slate-500 hover:bg-gray-100 hover:text-gray-900 p-2 rounded-full" data-btn="logout" id={{cartId}}>
+                Log out
+            </button>
+        </div>
+    </div>
+</nav>
+<main class="h-full relative">
+    <section class="bg-gradient text-white gap-5">
+        <h3 class="text-3xl text-white">Welcome {{user.firstName}} {{user.lastName}}</h3>
+        {{#if payload}}
+        <div>
+            <ul id="ls-products" class="list-none ls-products">
+                {{#each payload}}
+                <li class="rounded bg-slate-600 p-1">
+                    <p class="text-blue-300 flex flex-col items-center flex-wrap">{{this.title}}</p>
+                    {{#if this.thumbnails.length}}
+                    <img src={{this.thumbnails.[0]}} alt="image of {{this.title}}">
+                    {{/if}}
+                    <div class="text-sm p-2 flex flex-col">
+                        <p class="rounded bg-slate-800 p-2">{{this.description}}</p>
+                        <p>Category: {{this.category}}</p>
+                        <p>Code: {{this.code}}</p>
+                        <p>Stock: {{this.stock}}</p>
+                        <p>Price: $ {{this.price}}</p>
+                        <form class="flex flex-col gap-2" id="{{this.id}}">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" min="1" max="50" value="1" name="quantity" id="quantity"
+                                pattern="^[1-9]|[1-4][0-9]|50$"
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                placeholder="Enter a number">
+                            <button type="submit"
+                                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+            <div class="flex justify-center items-center mt-3 w-full">
+                {{#if hasPrevPage}}
+                <a href="{{prevLink}}"
+                    class="bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded mr-4">Prev Page</a>
+                {{/if}}
+                <p class="text-rose-500 font-bold align-center">Page {{page}} of {{totalPages}}</p>
+                {{#if hasNextPage}}
+                <a href="{{nextLink}}"
+                    class="ml-4 bg-rose-500 hover:bg-rose-700 text-white font-bold py-2 px-4 rounded">Next Page</a>
+                {{/if}}
+            </div>
+        </div>
+        {{else}}
+        <h3 class="text-3xl text-blue-300">There's not products!</h3>
+        {{/if}}
+    </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src={{scriptPath}}></script>
+<script src={{scriptPath2}}></script>

@@ -1,0 +1,50 @@
+ <div class="flex flex-col justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 h-screen">
+      <div class="flex flex-col items-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Login</h1>
+        <form class="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4" id="loginFrom">
+          <div class="mb-4">
+            <label class="block text-white font-bold mb-2" for="username">
+              email
+            </label>
+            <input
+              class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Username"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-white font-bold mb-2" for="password">
+              Password
+            </label>
+            <input
+              class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              type="submit"
+            >
+              Sign In
+            </button>
+          </div>
+        </form>
+        <div class="bg-gray-800 rounded-full p-2">
+        <p class="text-gray-400 text-base">
+          Don't have an account?
+          <a class="font-bold text-blue-500 hover:text-blue-800" href="/user/register">Sign Up</a>
+        </p>
+        </div>
+      </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src={{scriptPath}}></script>
+
+
+    
