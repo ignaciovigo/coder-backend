@@ -37,12 +37,14 @@ router.post('/login', async (req, res) => {
     const { id } = await cartManager.createCart()
     console.log('session logged')
     // assign data for the session.
+    const rol = (user.email === 'adminCoder@coder.com') ? 'admin' : 'user'
     req.session.user = {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       age: user.age,
-      cartId: id
+      cartId: id,
+      rol
     }
     console.log(user)
     res

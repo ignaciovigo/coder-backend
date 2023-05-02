@@ -40,6 +40,10 @@ router.get('/carts/:cid', redirectNotUser, async (req, res) => {
 })
 
 // user
+router.get('/', redirectLoggedIn, async (req, res) => {
+  res.render('login', { scriptPath: '/js/login.js' })
+})
+
 router.get('/user/login', redirectLoggedIn, async (req, res) => {
   res.render('login', { scriptPath: '/js/login.js' })
 })
