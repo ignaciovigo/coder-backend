@@ -1,0 +1,18 @@
+<nav class="bg-slate-800 text-gray-100 fixed w-full z-10">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <a href="http://localhost:8080/user/profile"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Profile</a>
+                <a href="http://localhost:8080/carts/{{cartId}}"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Your
+                    cart</a>
+                <a href="http://localhost:8080/products"
+                    class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-300 transition duration-150 ease-in-out">Products</a>
+            </div>
+            <button class="bg-slate-500 hover:bg-gray-100 hover:text-gray-900 p-2 rounded-full" data-btn="logout" id={{cartId}}>
+                Log out
+            </button>
+        </div>
+    </div>
+</nav>
