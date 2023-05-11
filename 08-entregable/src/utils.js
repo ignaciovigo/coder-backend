@@ -1,6 +1,8 @@
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import brcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import crypto from 'crypto'
 const fileName = fileURLToPath(import.meta.url)
 const __dirname = dirname(fileName)
 
@@ -44,5 +46,14 @@ function getLink (req, result) {
 const createHash = (pwd) => brcrypt.hashSync(pwd, brcrypt.genSaltSync(10))
 
 const isValidPassword = (user, pwd) => brcrypt.compareSync(pwd, user.password)
+// Function to generate the token once we have the user data sended for the user
 
-export { __dirname, patterns, getLink, createHash, isValidPassword }
+const generateToken = (user) => {
+  return jwt.sign(user, process.env.PRIVATE_KEY, { expiresIn: 3600 }) // 3600 seconds == 1 hour
+}
+
+function randomString (length) {
+  return crypto.randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length)
+}
+
+export { __dirname, patterns, getLink, createHash, isValidPassword, generateToken, randomString }

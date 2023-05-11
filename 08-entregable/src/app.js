@@ -4,10 +4,11 @@ import './db.js'
 import handlebars from 'express-handlebars'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
+import jwtRouter from './routes/jwt.routes.js'
+import usersRouter from './routes/users.routes.js'
 import routerProducts from './routes/products.routes.js'
 import routerCarts from './routes/carts.routes.js'
 import routerViews from './routes/views.routes.js'
-import sessionRouter from './routes/sessions.routes.js'
 import { __dirname } from './utils.js'
 import initializePassport from './middlewares/passport.config.js'
 // import SocketServer from './services/SocketServer.js'
@@ -44,8 +45,9 @@ app.set('view engine', 'handlebars')
 
 // to endpoints
 app.use('/api/products', routerProducts)
+app.use('/api/users', usersRouter)
 app.use('/api/carts', routerCarts)
-app.use('/api/sessions', sessionRouter)
+app.use('/api/jwt', jwtRouter)
 app.use('/', routerViews)
 
 // Running sv

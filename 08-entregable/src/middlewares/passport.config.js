@@ -1,50 +1,27 @@
 import passport from 'passport'
-import local from 'passport-local'
 import Github from 'passport-github2'
 import userModel from '../models/users.model.js'
-import { createHash, isValidPassword } from '../utils.js'
+import jwtStrategy from 'passport-jwt'
+import { createHash, randomString } from '../utils.js'
+// function to extract the token from the http request and decoded it
+const ExtractJWT = jwtStrategy.ExtractJwt
 
-const LocalStrategy = local.Strategy
 const initializePassport = () => {
-  // register strategy
-  passport.use('register', new LocalStrategy({ passReqToCallback: true, usernameField: 'email' },
-    async (req, username, password, done) => {
-      const { firstName, lastName, email, age } = req.body
-      if (!firstName || !lastName || !email || !age || !password) return done('Some fields are incomplete', false)
-      try {
-        const user = await userModel.findOne({ email: username })
-        if (user) {
-          return done(null, false)
-        } else {
-          const newUser = {
-            firstName,
-            lastName,
-            email,
-            age,
-            password: createHash(password),
-            role: (username === 'adminCoder@coder.com') ? 'Admin' : 'User'
-          }
-          const result = await userModel.create(newUser)
-          if (!result) return done('Could not register the user', false)
-          return done(null, result)
-        }
-      } catch (error) {
-        return done(`Error in the registration process: ${error} ${error.message}`)
-      }
-    }))
-
-  // login local strategy
-  passport.use('login', new LocalStrategy({ passReqToCallback: true, usernameField: 'email' },
-    async (req, username, password, done) => {
-      try {
-        const user = await userModel.findOne({ email: username })
-        if (!user || !isValidPassword(user, password)) return done(null, false, { message: 'The email or password is invalid.' })
-        return done(null, user)
-      } catch (error) {
-        return done(`Error in the login process: ${error}`)
-      }
-    }))
-
+  // auth jwt strategy
+  passport.use('jwt', new jwtStrategy.Strategy({
+    jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+    secretOrKey: process.env.PRIVATE_KEY
+  },
+  async (payload, done) => {
+    try {
+      console.log('Token has been received and decoded from passport jwt')
+      return done(null, payload)
+    } catch (error) {
+      console.error(`Error strategy jwt, ${error}`)
+      return done(`Error ${error.message}`)
+    }
+  })
+  )
   // login gitHub strategy
   passport.use('github', new Github(
     {
@@ -54,41 +31,60 @@ const initializePassport = () => {
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        if (!profile._json.email) return done(null, false)
+        if (!profile._json.email) return done('Make sure that the email in your GitHub accoun must be in public access', false)
         const user = await userModel.findOne({ email: profile._json.email })
-        if (!user) {
+        // checks if the user exists with the email received from github account
+        if (user) {
+          // checks if the user has github Id
+          if (user.githubId) {
+            return done(null, { firstName: user.firstName, email: user.email, role: user.role, age: user.age, lastName: user.lastName })
+          } else {
+            // if the user has already registered before but its joinning for the first time with github
+            const userUpdated = await userModel.findOneAndUpdate({ email: profile._json.email }, { githubId: profile.id }, { new: true })
+            return done(null, { firstName: userUpdated.firstName, email: userUpdated.email, role: userUpdated.role, age: userUpdated.age, lastName: userUpdated.lastName })
+          }
+        } else {
+          // if the user doesnt have any type of account
           const newUser = {
             firstName: profile.username,
-            lastName: '',
+            lastName: undefined,
             email: profile._json.email,
             age: undefined,
-            password: '',
-            role: (profile._json.email === 'adminCoder@coder.com') ? 'Admin' : 'User'
+            githubId: profile.id,
+            role: (profile._json.email === 'adminCoder@coder.com') ? 'Admin' : 'User',
+            password: createHash(randomString(12))
           }
           const result = await userModel.create(newUser)
           if (!result) return done('Could not access with github account', false)
-          return done(null, result)
-        } else {
-          return done(null, user)
+          return done(null, { firstName: result.firstName, email: result.email, role: result.role, age: result.age, lastName: result.lastName })
         }
       } catch (error) {
         return done(error)
       }
     }
   ))
+
+  passport.serializeUser((user, done) => {
+    done(null, user._id)
+  })
+
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await userModel.findById(id)
+      done(null, user)
+    } catch (error) {
+      console.log(`Deserialize user error: ${error}`)
+    }
+  })
 }
 
-passport.serializeUser((user, done) => {
-  done(null, user._id)
-})
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await userModel.findById(id)
-    done(null, user)
-  } catch (error) {
-    console.log(`Deserialize user error: ${error}`)
+function cookieExtractor (req) {
+  let token = null
+  if (req && req.cookies) {
+    console.log('Cookies exists in the req cookie!')
+    token = req.cookies.jwtCookie
   }
-})
+  return token
+}
 
 export default initializePassport

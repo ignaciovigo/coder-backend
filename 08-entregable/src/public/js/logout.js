@@ -1,7 +1,7 @@
 const $btnLogout = document.querySelector('[data-btn|=logout]')
 $btnLogout.addEventListener('click', async (e) => {
   try {
-    const res = await fetch(window.location.origin + '/api/sessions/logout')
+    const res = await fetch(window.location.origin + '/api/jwt/logout')
     const resp = await res.json()
     if (resp.status === 'success') {
       window.location.replace('/user/login')

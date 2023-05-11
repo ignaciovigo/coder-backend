@@ -5,21 +5,22 @@ $form.addEventListener('submit', async (e) => {
   const entries = new FormData(e.currentTarget).entries()
   const data = Object.fromEntries(entries)
   try {
-    const result = await fetch('/api/sessions/login', {
+    const result = await fetch('/api/jwt/login', {
       method: 'POST',
       headers: {
-        'content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     })
-    const resp = await result.json()
-    if (resp.status === 'success') {
+    console.log(result)
+    if (result.status === 200) {
       window.location.replace('/products')
     } else {
-      throw { message: resp.message }
+      const bodyResponse = await result.json()
+      throw { message: bodyResponse.message }
     }
   } catch (error) {
-    console.error(error.message)
+    console.error(error, error.message)
     Swal.fire({
       icon: 'error',
       title: error.message

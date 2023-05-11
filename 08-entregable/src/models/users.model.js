@@ -24,7 +24,8 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ['Admin', 'User'],
       default: 'User'
-    }
+    },
+    githubId: String
   }
 )
 

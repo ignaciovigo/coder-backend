@@ -2,14 +2,11 @@ import { Router } from 'express'
 import { productManager } from '../services/ProductManager.service.js'
 import { getLink } from '../utils.js'
 import { cartManager } from '../services/CartManager.service.js'
-import {
-  redirectLoggedIn,
-  redirectNotUser
-} from '../middlewares/authorization.js'
+import { authByRole, passportStrategy } from '../middlewares/authorization.js'
 
 const router = Router()
 // products
-router.get('/products', redirectNotUser, async (req, res) => {
+router.get('/products', passportStrategy('jwt'), authByRole(['User', 'Admin']), async (req, res) => {
   try {
     const { limit, page, sort, query } = req.query
     if (limit && isNaN(Number(limit))) { throw new Error('The param limit given must be a number') }
@@ -31,7 +28,7 @@ router.get('/products', redirectNotUser, async (req, res) => {
       ...resp,
       prevLink,
       nextLink,
-      ...req.session.user
+      ...req.user
     }
     res.render('products', {
       ...resultFormatted,
@@ -44,7 +41,7 @@ router.get('/products', redirectNotUser, async (req, res) => {
   }
 })
 // cart
-router.get('/carts/:cid', redirectNotUser, async (req, res) => {
+router.get('/carts/:cid', passportStrategy('jwt'), authByRole(['User', 'Admin']), async (req, res) => {
   try {
     const { cid } = req.params
     if (typeof cid !== 'string') throw new Error('The id cart is invalid')
@@ -73,21 +70,21 @@ router.get('/carts/:cid', redirectNotUser, async (req, res) => {
 })
 
 // user
-router.get('/', redirectLoggedIn, async (req, res) => {
+router.get('/', async (req, res) => {
+  res.redirect('/user/login')
+})
+
+router.get('/user/login', async (req, res) => {
   res.render('login', { scriptPath: '/js/login.js' })
 })
 
-router.get('/user/login', redirectLoggedIn, async (req, res) => {
-  res.render('login', { scriptPath: '/js/login.js' })
-})
-
-router.get('/user/register', redirectLoggedIn, async (req, res) => {
+router.get('/user/register', async (req, res) => {
   res.render('register', { scriptPath: '/js/register.js' })
 })
 
-router.get('/user/profile', redirectNotUser, async (req, res) => {
-  console.log({ ...req.session.user })
-  res.render('profile', { ...req.session.user, scriptPath2: '/js/logout.js' })
+router.get('/user/profile', passportStrategy('jwt'), authByRole(['Admin', 'User']), async (req, res) => {
+  console.log('from profile. ', req.user)
+  res.render('profile', { ...req.user, scriptPath2: '/js/logout.js' })
 })
 
 // router.get('/realtimeproducts', async (req, res) => {

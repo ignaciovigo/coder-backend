@@ -4,7 +4,7 @@ $form.addEventListener('submit', async e => {
   e.preventDefault()
   const data = Object.fromEntries(new FormData(e.target).entries())
   try {
-    const result = await fetch('/api/sessions/register', {
+    const result = await fetch('/api/users/register', {
       method: 'POST',
       headers: {
         'content-Type': 'application/json'

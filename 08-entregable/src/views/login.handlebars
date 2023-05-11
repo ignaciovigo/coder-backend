@@ -3,12 +3,12 @@
     <h1 class="text-4xl font-bold text-gray-900 mb-4">Login</h1>
     <form class="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4" id="loginFrom">
       <div class="mb-4">
-        <label class="block text-white font-bold mb-2" for="username">
+        <label class="block text-white font-bold mb-2" for="email">
           email
         </label>
         <input
           class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="email" name="email" type="email" placeholder="Username" />
+          id="email" name="email" type="email" placeholder="Email" />
       </div>
       <div class="mb-6">
         <label class="block text-white font-bold mb-2" for="password">
@@ -32,7 +32,7 @@
         <a class="font-bold text-blue-500 hover:text-blue-800" href="/user/register">Sign Up</a>
       </p>
     </div>
-    <a href="/api/sessions/github" class="mt-2">
+    <a href="/api/jwt/github" class="mt-2">
       <button class="bg-gray-800 text-white px-4 py-2 rounded-full hover:bg-gray-700">
         Sing In with GitHub
       </button>

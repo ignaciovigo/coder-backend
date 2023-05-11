@@ -5,14 +5,14 @@ const CART_ID = document.querySelector('[data-btn|=logout]').id
 document.addEventListener('submit', (e) => {
   e.preventDefault()
   const id = e.target.id
-  const quantity = e.target.quantity.value
+  const quantity = Number(e.target.quantity.value)
   fetch(`http://localhost:8080/api/carts/${CART_ID}/product/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      quantity: Number(quantity)
+      quantity
     })
   })
     .then(response => response.json())
