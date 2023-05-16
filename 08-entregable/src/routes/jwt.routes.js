@@ -13,7 +13,7 @@ router.post('/login', async (req, res) => {
     // check if the email exists in the db
     const userFromDB = await userModel.findOne({ email })
     if (!userFromDB) return res.status(400).send({ status: 'info', message: 'Credentials Error' })
-    if (!userFromDB.password) return res.status(401).send({ status: 'info', message: 'You cant access may be you have already registered with GitHub Account'})
+    if (!userFromDB.password) return res.status(401).send({ status: 'info', message: 'You cant access may be you have already registered with GitHub Account' })
     // if the password received is wrong
     if (!isValidPassword(userFromDB, pwd)) return res.status(400).send({ status: 'info', message: 'Credentials Error' })
     // finally I create an object without sensitive user data

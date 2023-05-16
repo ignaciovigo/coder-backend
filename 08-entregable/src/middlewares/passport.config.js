@@ -39,19 +39,19 @@ const initializePassport = () => {
           if (user.githubId) {
             return done(null, { firstName: user.firstName, email: user.email, role: user.role, age: user.age, lastName: user.lastName })
           } else {
-            // if the user has already registered before but its joinning for the first time with github
+            // if the user has already registered before and is joinning for the first time with github
             const userUpdated = await userModel.findOneAndUpdate({ email: profile._json.email }, { githubId: profile.id }, { new: true })
             return done(null, { firstName: userUpdated.firstName, email: userUpdated.email, role: userUpdated.role, age: userUpdated.age, lastName: userUpdated.lastName })
           }
         } else {
-          // if the user doesnt have any type of account
+          // if the user has no account
           const newUser = {
             firstName: profile.username,
             lastName: undefined,
             email: profile._json.email,
             age: undefined,
             githubId: profile.id,
-            role: (profile._json.email === 'adminCoder@coder.com') ? 'Admin' : 'User',
+            role: (profile._json.email === 'adminCoder@coder.com') ? 'ADMIN' : 'USER',
             password: createHash(randomString(12))
           }
           const result = await userModel.create(newUser)

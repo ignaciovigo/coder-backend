@@ -1,16 +1,15 @@
 import express from 'express'
-import session from 'express-session'
 import './db.js'
 import handlebars from 'express-handlebars'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
-import jwtRouter from './routes/jwt.routes.js'
-import usersRouter from './routes/users.routes.js'
-import routerProducts from './routes/products.routes.js'
-import routerCarts from './routes/carts.routes.js'
-import routerViews from './routes/views.routes.js'
 import { __dirname } from './utils.js'
 import initializePassport from './middlewares/passport.config.js'
+import UsersRouter from './routes/customRouter/UsersRouter.js'
+import JwtRouter from './routes/customRouter/JwtRouter.js'
+import ProductsRouter from './routes/customRouter/ProductsRouter.js'
+import CartsRouter from './routes/customRouter/CartsRouter.js'
+import ViewsRouter from './routes/customRouter/ViewsRouter.js'
 // import SocketServer from './services/SocketServer.js'
 
 const app = express()
@@ -21,19 +20,13 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // to cookies
-app.use(cookieParser())
+app.use(cookieParser(process.env.SECRET_COOKIE))
 
 // to sessions
-app.use(session({
-  secret: 'xlrstats101',
-  resave: false,
-  saveUninitialized: true
-}))
 
 // to passport
 initializePassport()
 app.use(passport.initialize())
-app.use(passport.session())
 
 // to managment static files
 app.use(express.static(__dirname + '/public'))
@@ -42,13 +35,18 @@ app.use(express.static(__dirname + '/public'))
 app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
-
+// instance of custom router
+const initUserRouter = new UsersRouter()
+const initProductsRouter = new ProductsRouter()
+const initJwtRouter = new JwtRouter()
+const initCartsRouter = new CartsRouter()
+const initViewsRouter = new ViewsRouter()
 // to endpoints
-app.use('/api/products', routerProducts)
-app.use('/api/users', usersRouter)
-app.use('/api/carts', routerCarts)
-app.use('/api/jwt', jwtRouter)
-app.use('/', routerViews)
+app.use('/api/users', initUserRouter.getRouter())
+app.use('/api/jwt', initJwtRouter.getRouter())
+app.use('/api/products', initProductsRouter.getRouter())
+app.use('/api/carts', initCartsRouter.getRouter())
+app.use('/', initViewsRouter.getRouter())
 
 // Running sv
 app.listen(PORT, () => {

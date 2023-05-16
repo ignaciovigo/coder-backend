@@ -3,30 +3,25 @@ import { cartManager } from '../services/CartManager.service.js'
 export async function createCart (req, res) {
   try {
     const result = await cartManager.createCart()
-    if (!result) throw new Error('The cart was not created')
-    res.send({
-      status: 'success',
-      message: 'Cart created successfully',
-      cart: result
-    })
+    if (!result) return res.sendServerError('The cart was not created')
+    return res.sendSuccess(result)
   } catch (err) {
-    res.status(500).send({ status: 'error', message: err.message })
+    return res.sendServerError(err.message)
   }
 }
 // GET /api/carts/:cid
 export async function getCartById (req, res) {
   try {
     const { cid } = req.params
-    if (typeof cid !== 'string') throw new Error('The id cart is invalid')
+    if (typeof cid !== 'string') return res.sendUserError('The id cart is invalid')
     if (!cid) {
-      res.status(406).send({ status: 'error', message: 'The id provided is invalid' })
+      return res.sendUserError('The id provided is invalid')
     }
     const result = await cartManager.getCartById(cid)
-    if (!result) throw new Error('Cart not found')
-
-    res.status(200).send({ status: 'success', payload: result })
+    if (!result) return res.sendUserError('Cart not found')
+    return res.sendSuccess(result)
   } catch (err) {
-    res.status(500).send({ status: 'error', message: err.message })
+    return res.sendServerError(err.message)
   }
 }
 // PUT /api/carts/:cid/product/:pid
@@ -35,15 +30,15 @@ export async function updateProductInCart (req, res) {
     const cid = req.params.cid
     const pid = req.params.pid
     const quantity = Number(req.body.quantity)
-    if (typeof Number(quantity) !== 'number') throw new Error('The quantity must be a number')
-    if (typeof cid !== 'string' || typeof pid !== 'string') throw new Error('The id provided must be a string')
-    if (!cid || !pid) return res.send({ status: 'error', message: 'one or both given ids are invalid' })
+    if (typeof Number(quantity) !== 'number') return res.sendUserError('The quantity must be a number')
+    if (typeof cid !== 'string' || typeof pid !== 'string') return res.sendUserError('The id provided must be a string')
+    if (!cid || !pid) return res.sendUserError('One or both given ids are invalid')
     const result = await cartManager.updateProductInCart(cid, pid, quantity)
-    if (!result) throw new Error('Cart or product not found')
-    res.send({ status: 'success', message: `The product with id ${pid} was updated`, payload: result })
+    if (!result) return res.sendUserError('Cart or product not found')
+    return res.sendSuccess(result)
   } catch (err) {
     console.log(err)
-    res.status(500).send({ status: 'error', message: err.message })
+    return res.sendServerError(err.message)
   }
 }
 // PUT /api/carts/:cid
@@ -51,12 +46,13 @@ export async function addProductstoCart (req, res) {
   try {
     const { cid } = req.params
     const products = req.body
-    if (typeof cid !== 'string') throw new Error('The id provided must be a string')
-    if (!Array.isArray(products)) throw new Error('The data received is not an Array')
+    if (typeof cid !== 'string') return res.sendUserError('The id provided must be a string')
+    if (!Array.isArray(products)) return res.sendUserError('The data received is not an Array')
     const result = await cartManager.addProductsToCart({ arrProducts: products, cartId: cid })
-    res.send({ status: 'success', message: 'the products in the cart have been added', payload: result })
+    if (!result) return res.sendUserError('One or both ids provided are invalid')
+    return res.sendSuccess(result)
   } catch (error) {
-    res.status(500).send({ status: 'error', message: error.message })
+    return res.sendServerError(error.message)
   }
 }
 // DELETE /api/carts/:cid/product/:pid
@@ -64,28 +60,28 @@ export async function deleteProductById (req, res) {
   try {
     const cid = req.params.cid
     const pid = req.params.pid
-    if (typeof cid !== 'string' || typeof pid !== 'string') throw new Error('The id provided must be a string')
-    if (!cid || !pid) return res.send({ status: 'error', message: 'one or both given ids are invalid' })
+    if (typeof cid !== 'string' || typeof pid !== 'string') return res.sendUserError('The id provided must be a string')
+    if (!cid || !pid) return res.sendUserError('one or both given ids are invalid')
     const result = await cartManager.deleteProductById({ cartId: cid, productId: pid })
-    if (!result) throw new Error('Something wrong')
-    res.send({ status: 'success', message: `The product with id ${pid} has been deleted`, payload: result })
+    if (!result) return res.sendServerError('Could not deleted the product')
+    return res.sendSuccess(result)
   } catch (err) {
     console.log(err)
-    res.status(500).send({ status: 'error', message: err.message })
+    return res.sendServerError(err.message)
   }
 }
 // DELETE /api/carts/:cid
 export async function deleteAllproductsInCart (req, res) {
   try {
     const cid = req.params.cid
-    if (typeof cid !== 'string') throw new Error('The id provided must be a string')
-    if (!cid) throw new Error('cart id given invalid')
+    if (typeof cid !== 'string') return res.sendUserError('The id provided must be a string')
+    if (!cid) return res.sendUserError('cart id given invalid')
     const result = await cartManager.deleteAllproductsInCart({ cartId: cid })
-    if (!result) throw new Error('Something wrong')
-    if (result.modifiedCount === 0) res.send({ status: 'info', message: 'Product id not found', payload: result })
-    if (result.modifiedCount === 1) res.send({ status: 'success', message: `The cart with id ${cid} has been emptied`, payload: result })
+    if (!result) return res.sendUserError('Could not deleted the products')
+    if (result.modifiedCount === 0) return res.sendUserError('Product id not found')
+    if (result.modifiedCount === 1) return res.sendSuccessInfo(`The cart with id ${cid} has been emptied`)
   } catch (err) {
     console.log(err)
-    res.status(500).send({ status: 'error', message: err.message })
+    return res.sendServerError(err.message)
   }
 }

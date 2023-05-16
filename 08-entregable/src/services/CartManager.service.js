@@ -1,4 +1,5 @@
 import cartModel from '../models/carts.models.js'
+import productModel from '../models/products.models.js'
 
 class CartManager {
   static #cartManagerUnique
@@ -61,6 +62,9 @@ class CartManager {
   async addProductsToCart ({ arrProducts, cartId }) {
     // receives an array of products and overwrites them in a specific cart
     try {
+      const productsId = arrProducts.map(pdcto => pdcto.product)
+      const existProducts = await productModel.find({ _id: { $in: productsId } })
+      if (existProducts.length !== productsId.length) throw new Error('Some products dont exist')
       const result = await cartModel.findOneAndUpdate(
         { _id: cartId },
         { products: arrProducts },
@@ -95,7 +99,7 @@ class CartManager {
         { _id: cartId },
         { products: [] }
       )
-      if (!result) throw new Error('Could not delete the product')
+      if (!result) throw new Error('Could not delete the products')
       return result
     } catch (error) {
       if (error.name === 'CastError') { throw Error('Not exist a cart with the id received') }

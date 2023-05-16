@@ -6,7 +6,7 @@ import { authByRole, passportStrategy } from '../middlewares/authorization.js'
 
 const router = Router()
 // products
-router.get('/products', passportStrategy('jwt'), authByRole(['User', 'Admin']), async (req, res) => {
+router.get('/products', passportStrategy('jwt'), authByRole(['USER', 'ADMIN']), async (req, res) => {
   try {
     const { limit, page, sort, query } = req.query
     if (limit && isNaN(Number(limit))) { throw new Error('The param limit given must be a number') }
@@ -41,7 +41,7 @@ router.get('/products', passportStrategy('jwt'), authByRole(['User', 'Admin']), 
   }
 })
 // cart
-router.get('/carts/:cid', passportStrategy('jwt'), authByRole(['User', 'Admin']), async (req, res) => {
+router.get('/carts/:cid', passportStrategy('jwt'), authByRole(['USER', 'ADMIN']), async (req, res) => {
   try {
     const { cid } = req.params
     if (typeof cid !== 'string') throw new Error('The id cart is invalid')
@@ -82,7 +82,7 @@ router.get('/user/register', async (req, res) => {
   res.render('register', { scriptPath: '/js/register.js' })
 })
 
-router.get('/user/profile', passportStrategy('jwt'), authByRole(['Admin', 'User']), async (req, res) => {
+router.get('/user/profile', passportStrategy('jwt'), authByRole(['USER', 'ADMIN']), async (req, res) => {
   console.log('from profile. ', req.user)
   res.render('profile', { ...req.user, scriptPath2: '/js/logout.js' })
 })
