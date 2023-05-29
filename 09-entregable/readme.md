@@ -65,7 +65,7 @@
 - `GET /api/jwt/github`: To join with github account
 - `GET /api/jwt/githubcallback`: Its necessary for going back to our page.
 - `POST /api/users/register`: Creates an user in the database once you send an object that contains email, password, age, firstName, lastName.
-- `POST /api/users/data`: Provides the not sensitive user data.
+- `GET /api/users/data`: Provides the not sensitive user data.
 
 
 
