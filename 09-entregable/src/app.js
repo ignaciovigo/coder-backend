@@ -1,4 +1,4 @@
-import './config.js'
+import config from './config/config.js'
 import express from 'express'
 import handlebars from 'express-handlebars'
 import cookieParser from 'cookie-parser'
@@ -19,7 +19,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 // to cookies
-app.use(cookieParser(process.env.SECRET_COOKIE))
+app.use(cookieParser(config.SECRET_COOKIE))
 
 // to sessions
 
@@ -48,8 +48,8 @@ app.use('/api/carts', initCartsRouter.getRouter())
 app.use('/', initViewsRouter.getRouter())
 
 // Running sv
-app.listen(process.env.PORT, () => {
-  console.log(`server running on port : ${process.env.PORT}`)
+app.listen(config.PORT, () => {
+  console.log(`server running on port : ${config.PORT}`)
 })
 // Data base connection
 const connectDB = async () => {

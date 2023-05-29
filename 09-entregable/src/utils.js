@@ -3,6 +3,7 @@ import { dirname } from 'path'
 import brcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
+import config from './config/config.js'
 const fileName = fileURLToPath(import.meta.url)
 const __dirname = dirname(fileName)
 
@@ -49,7 +50,7 @@ const isValidPassword = (user, pwd) => brcrypt.compareSync(pwd, user.password)
 // Function to generate the token once we have the user data sended for the user
 
 const generateToken = (user) => {
-  return jwt.sign(user, process.env.PRIVATE_KEY, { expiresIn: 3600 }) // 3600 seconds == 1 hour
+  return jwt.sign(user, config.PRIVATE_KEY, { expiresIn: 3600 }) // 3600 seconds == 1 hour
 }
 
 function randomString (length) {

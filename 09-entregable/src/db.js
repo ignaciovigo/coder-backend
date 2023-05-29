@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import config from './config/config.js'
 
 export class ConnectionToMDB {
   static #instance
@@ -15,7 +16,7 @@ export class ConnectionToMDB {
 
   #connectMongoDB = async () => {
     try {
-      await mongoose.connect(process.env.MONGO_URL, {
+      await mongoose.connect(config.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
       })

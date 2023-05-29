@@ -3,6 +3,7 @@ import Github from 'passport-github2'
 import userModel from '../models/users.model.js'
 import jwtStrategy from 'passport-jwt'
 import { createHash, randomString } from '../utils.js'
+import config from '../config/config.js'
 // function to extract the token from the http request and decoded it
 const ExtractJWT = jwtStrategy.ExtractJwt
 
@@ -10,7 +11,7 @@ const initializePassport = () => {
   // auth jwt strategy
   passport.use('jwt', new jwtStrategy.Strategy({
     jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-    secretOrKey: process.env.PRIVATE_KEY
+    secretOrKey: config.PRIVATE_KEY
   },
   async (payload, done) => {
     try {
@@ -25,9 +26,9 @@ const initializePassport = () => {
   // login gitHub strategy
   passport.use('github', new Github(
     {
-      clientID: process.env.CLIENT_ID_GITHUB,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: process.env.CALLBACK_URL
+      clientID: config.CLIENT_ID_GITHUB,
+      clientSecret: config.CLIENT_SECRET,
+      callbackURL: config.CALLBACK_URL
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
