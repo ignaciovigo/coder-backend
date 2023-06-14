@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=Roboto+Condensed&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+body > div {
+  height: 100vh;
+  width: 100vw;
+}
+
+.ff-first {
+  font-family: "Roboto Condensed", sans-serif;
+}
+.ff-second {
+  font-family: "PT Sans", sans-serif;
+}
+
+--first-color {
+  color: #f52103;
+  background-color: #f52103;
+}
+--second-color {
+  color: #fcae35;
+}
+
+--third-color {
+  color: #fa4c02;
+}
+
+--fourth-color {
+  color: #e65936;
+}
+
+--fifth-color {
+  color: #f8fafc;
+}
+
+/* bg */
+.bg-first {
+  background-color: #f52103;
+}
+
+.bg-second {
+  background-color: #fcae35;
+}
+.bg-third {
+  background-color: #fa4c02;
+}
+.bg-fourth {
+  background-color: #e65936;
+}
+.bg-fifth {
+  background-color: #f8fafc;
+}
+
+/* texts colors */
+.text-first {
+  color: #f52103;
+}
+
+.text-second {
+  color: #fcae35;
+}
+.text-third {
+  color: #fa4c02;
+}
+.text-fourth {
+  color: #e65936;
+}
+.text-fifth {
+  color: #f8fafc;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.bg-rain {
+  background-image: url("assets/dddepth-345.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+.bg-thing {
+  background-image: url("assets/dddepth-228.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.modal {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+ right: 0;
+}
+
+.modal::after{
+  z-index: 20;
+  position: absolute;
+  content: "";
+  top: 0;
+  right:0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1111119b;
+}
+
+.modal::before{
+  z-index: 30;
+  position: relative;
+  display: block;
+  top:70px;
+  right: 550px;
+  content: "";
+  width: 500px;
+  height: 500px;
+  background-color: #f52103;
+}
+.customLinks {
+  @apply bg-transparent text-gray-400 hover:text-gray-200 hover:bg-neutral-800 duration-300 ease-in transition-all px-2 py-2 ff-second text-lg
+}
+
+.dropdown {
+  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end
+}
+
+.dropdown_link {
+  @apply text-sm text-gray-700 hover:text-gray-500 font-medium
+}
