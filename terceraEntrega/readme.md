@@ -5,15 +5,15 @@
 
 > Por otro lado para correr el servidor ubicarse en el directorio server y ejectuar npm start.
 # Env variables utilizadas en el server
-MONGO_URL =  Url para conectar con mongo   mongodb://localhost:27017/entrega?retryWrites=true&w=majority
-CLIENT_ID_GITHUB = Id para el cliente de github
-CLIENT_SECRET = Id secreto para que requiere github
-CALLBACK_URL = Url callback que quiere github
-PRIVATE_KEY = Key privdada para passport bajo la estrategia jwt
-SECRET_COOKIE = key secreta para las cookies
-PORT = 8080
-URL_REACT_APP =  http://localhost:5173
-NODEMAILER = Clave de google account para la verificacion de dos pasos, asi poder utiilizar nodemailer
-EMAIL = Email que requiere nodemailer para su configuracion
+- MONGO_URL = mongodb://localhost:27017/entrega?retryWrites=true&w=majority
+- CLIENT_ID_GITHUB = Id para el cliente de github
+- CLIENT_SECRET = Id secreto para que requiere github
+- CALLBACK_URL = Url callback que quiere github
+- PRIVATE_KEY = Key privdada para passport bajo la estrategia jwt
+- SECRET_COOKIE = key secreta para las cookies
+- PORT = 8080
+- URL_REACT_APP =  http://localhost:5173
+- NODEMAILER = Clave de google account para la verificacion de dos pasos, asi poder utiilizar nodemailer
+- EMAIL = Email que requiere nodemailer para su configuracion
 
 
