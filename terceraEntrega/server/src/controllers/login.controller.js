@@ -1,5 +1,4 @@
-import { cartManager } from '../services/CartManager.service.js'
-import { userService } from '../services/repositories/index.js'
+import { cartService, userService } from '../services/repositories/index.js'
 import { generateToken, isValidPassword } from '../utils.js'
 
 export async function loginUser (req, res) {
@@ -45,7 +44,7 @@ export async function logoutUser (req, res) {
 
 export async function loginWithGitHub (req, res) {
   try {
-    const { id } = await cartManager.createCart()
+    const { id } = await cartService.createCart()
     req.user.cartId = id
     console.log('req user from callback git', req.user)
     const accessToken = generateToken(req.user)

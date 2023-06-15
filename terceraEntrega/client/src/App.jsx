@@ -7,7 +7,6 @@ const Login = lazy(() => import("./components/Login"));
 const Register = lazy(() => import("./components/Register"));
 import { Toaster } from "react-hot-toast";
 import Loading from "./components/Loading";
-import SessionProvider from "./contexts/SessionProvider.jsx";
 import ProfileContainer from "./components/ProfileContainer";
 import HistoryContainer from "./components/HistoryContainer";
 import ProductsContainer from "./components/ProductsContainer";

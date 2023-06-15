@@ -17,3 +17,6 @@
 - EMAIL = Email que requiere nodemailer para su configuracion
 
 
+Email para tener una cuenta de administador y poder acceder al panel de agregar o eliminar productos.
+-   email: admin@coder.com
+
