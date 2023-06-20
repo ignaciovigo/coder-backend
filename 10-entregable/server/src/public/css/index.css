@@ -1,0 +1,59 @@
+html{
+  scroll-behavior: smooth;
+}
+body{
+    min-height: 100vh;
+    width: 100%;
+}
+section{
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ls-products{
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  width: 100%;
+  justify-items: center;
+  gap: .5em;
+}
+.ls-products li{
+    width: 200px;
+    height: 100%;
+}
+
+.bg-gradient{
+    background: linear-gradient(45deg, rgba(38,38,45,1) 0%, rgba(31,31,54,1) 47%, rgba(12,87,102,1) 100%);
+    backdrop-filter: blur(8px);
+    height: min-content;
+    background-size: 300% 300%;
+    animation: transitionColor 8s ease-in-out infinite;
+}
+
+input, option, select{
+  background-color:rgb(71 85 105);
+  outline: none;
+  border: 2px solid transparent;
+}
+
+input:focus,option:focus,select:focus{
+  /* focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 */
+  outline: none;
+  border-color:rgb(14 165 233) ;
+}
+
+@keyframes transitionColor {
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+      background-position: 100% 50%;
+    }
+    100%{
+      background-position: 0% 50%;
+    }
+}
