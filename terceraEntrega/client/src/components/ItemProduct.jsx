@@ -22,8 +22,8 @@ export default function ItemProduct({ product, role, refreshProducts }) {
   } = product;
 
   const handleAddToCart = () => {
-    addToCart({ product, quantity });
-    setQuantity(1);
+      addToCart({ product, quantity });
+      setQuantity(1);
   };
   const decreaseQuantity = () => {
     if (quantity > 1) {
@@ -68,7 +68,7 @@ export default function ItemProduct({ product, role, refreshProducts }) {
          )
         }
       </div>
-      <p className='text-gray-600 mb-4'>{description}</p>
+      <p className='text-gray-600 mb-4 break-words overflow-y-scroll max-h-24'>{description}</p>
       <div className='grid grid-cols-3 gap-2'>
         {thumbnails.map((thumbnail, index) => (
           <img

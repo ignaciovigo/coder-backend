@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react'
+import { toast } from 'react-hot-toast'
 export const CartContext = createContext()
 
 const intialState = []
@@ -11,19 +12,28 @@ const reducer = (state, action) => {
       const index = state.findIndex((item) => item.product.id === product.id)
       if (index >= 0) {
         const newState = structuredClone(state)
-        if((newState[index].quantity + quantity ) <= product.stock ){
-            newState[index].quantity += quantity
+        if(( newState[index].quantity + quantity ) <= product.stock && product.stock > 0){
+          newState[index].quantity += quantity
+            toast.success(`Product added ${product.title}`)
             return newState // devolvemos el nuevo estado
         }else{
-            return newState
+          toast.error(`Stock limit ${product.stock}`)
+          return newState
+        }
+      } else{
+        if(quantity <= product.stock && product.stock > 0 ){
+          toast.success(`Product added ${product.title}`)
+          return [
+            ...state,
+            {
+              ...actionPayLoad, // product
+              quantity: quantity
+            }]
+        } else{
+          toast.error('Not stock')
+          return state
         }
       }
-      return [
-        ...state,
-        {
-          ...actionPayLoad, // product
-          quantity: quantity
-        }]
     }
     case 'REMOVE_TO_CART': {
       const { product } = actionPayLoad
