@@ -70,38 +70,3 @@ export async function deleteProduct (req, res) {
     return res.sendServerError(error.message)
   }
 }
-
-// export async function renderProducts (req, res) {
-//   try {
-//     const { limit, page, sort, query } = req.query
-//     if (limit && isNaN(Number(limit))) return res.sendUserError('The param limit given must be a number')
-//     if (page && isNaN(Number(page))) return res.sendUserError('The param page given must be a number')
-//     if (sort && sort !== 'asc' && sort !== 'desc') return res.sendUserError('The param sort given must be a value "asc" or "desc" ')
-//     const result = await productService.getAll({
-//       limit,
-//       page,
-//       sort,
-//       query
-//     })
-//     // Adding properties nextLink and prevLink to result
-//     const { prevLink, nextLink } = getLink(req, result)
-//     // Excluding some properties of the result
-//     const { docs, totalDocs, pagingCounter, ...resp } = result
-//     const resultFormatted = {
-//       status: 'success',
-//       payload: docs,
-//       ...resp,
-//       prevLink,
-//       nextLink,
-//       ...req.user
-//     }
-//     return res.render('products', {
-//       ...resultFormatted,
-//       style: '/css/index.css',
-//       scriptPath: '/js/products.js',
-//       scriptPath2: '/js/logout.js'
-//     })
-//   } catch (error) {
-//     return res.sendServerError(error.message)
-//   }
-// }

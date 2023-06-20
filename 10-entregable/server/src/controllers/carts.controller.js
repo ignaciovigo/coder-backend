@@ -152,29 +152,3 @@ export async function purchase (req, res) {
     return res.sendServerError(error.message)
   }
 }
-
-// export async function renderCartById (req, res) {
-//   try {
-//     const { cid } = req.params
-//     if (typeof cid !== 'string') { return res.sendUserError('The id cart is invalid') }
-//     if (!cid) {
-//       return res.sendUserError('The id provided is invalid')
-//     }
-//     const cart = await cartService.getCart(cid)
-//     console.log(cart.products)
-//     if (!cart) return res.sendUserError('Cart not found')
-//     const totalPrice = cart.products
-//       .reduce((acc, e) => acc + e.quantity * e.product.price, 0)
-//       .toFixed(2)
-//     return res.render('cart', {
-//       style: '/css/index.css',
-//       products: cart.products,
-//       totalPrice,
-//       scriptPath: '/js/cart.js',
-//       scriptPath2: '/js/logout.js',
-//       cartId: cid
-//     })
-//   } catch (error) {
-//     return res.sendServerError(error.message)
-//   }
-// }
