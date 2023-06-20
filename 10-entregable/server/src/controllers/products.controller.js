@@ -36,21 +36,19 @@ export async function getProductById (req, res) {
 }
 // controller for POST /api/products
 export async function addProduct (req, res) {
-
-    const { title, description, price, thumbnails, code, stock, status, category } = req.body
-    if (!title || !description || !price || !thumbnails || !code || !stock || typeof status !== 'boolean' || !category) {
-      CustomError.createError({
-        name: 'Create Product Error',
-        cause: createProductErrorInfo({ ...req.body }),
-        message: 'Error trying to create a product. its possible one or more fields are invalid',
-        code: EErrors.INVALID_TYPES_ERROR
-      })
-    }
-    // if (!newProduct) return res.sendUserError('The data received is incorrect')
-    const result = await productService.addProduct({ title, description, price, thumbnails, code, stock, status, category })
-    if (!result) return res.sendServerError('Could not add product')
-    return res.sendSuccessInfo(`Product added with id ${result._id}`)
-
+  const { title, description, price, thumbnails, code, stock, status, category } = req.body
+  if (!title || !description || !price || !thumbnails || !code || !stock || typeof status !== 'boolean' || !category) {
+    CustomError.createError({
+      name: 'Create Product Error',
+      cause: createProductErrorInfo({ ...req.body }),
+      message: 'Error trying to create a product. its possible one or more fields are invalid',
+      code: EErrors.INVALID_TYPES_ERROR
+    })
+  }
+  // if (!newProduct) return res.sendUserError('The data received is incorrect')
+  const result = await productService.addProduct({ title, description, price, thumbnails, code, stock, status, category })
+  if (!result) return res.sendServerError('Could not add product')
+  return res.sendSuccessInfo(`Product added with id ${result._id}`)
 }
 // Controller for PUT /api/products/:pid
 export async function updateProduct (req, res) {

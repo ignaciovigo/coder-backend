@@ -1,4 +1,3 @@
-
 export default class ProductManagerRepository {
   constructor (dao) {
     this.dao = dao
