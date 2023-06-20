@@ -1,5 +1,4 @@
 import { cartService, productService, ticketService } from '../services/repositories/index.js'
-import config from '../config/config.js'
 import { transport } from '../utils.js'
 
 // POST /api/carts/

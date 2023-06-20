@@ -10,6 +10,7 @@ import ProductsRouter from './routes/customRouter/ProductsRouter.js'
 import CartsRouter from './routes/customRouter/CartsRouter.js'
 import ConnectionToMDB from './db.js'
 import cors from 'cors'
+import MocksRouter from './routes/customRouter/MocksRouter.js'
 // import SocketServer from './services/SocketServer.js'
 
 const app = express()
@@ -40,13 +41,13 @@ const initUserRouter = new UsersRouter()
 const initProductsRouter = new ProductsRouter()
 const initJwtRouter = new JwtRouter()
 const initCartsRouter = new CartsRouter()
-
+const initMocksRouter = new MocksRouter()
 // to endpoints
 app.use('/api/users', initUserRouter.getRouter())
 app.use('/api/jwt', initJwtRouter.getRouter())
 app.use('/api/products', initProductsRouter.getRouter())
 app.use('/api/carts', initCartsRouter.getRouter())
-
+app.use('/mockingproducts', initMocksRouter.getRouter())
 // Running sv
 app.listen(config.PORT, () => {
   console.log(`server running on port : ${config.PORT}`)

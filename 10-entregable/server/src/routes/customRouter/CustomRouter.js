@@ -35,7 +35,7 @@ export default class CustomRouter {
         await callback.apply(this, params)
       } catch (error) {
         console.log(error)
-        params[1].status(500).send(error)
+        params[1].sendServerError(error.message)
       }
     })
   }

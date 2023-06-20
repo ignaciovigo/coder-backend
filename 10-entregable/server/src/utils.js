@@ -1,10 +1,11 @@
+import config from './config/config.js'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import brcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 import nodemailer from 'nodemailer'
-import config from './config/config.js'
+import { faker } from '@faker-js/faker'
 const fileName = fileURLToPath(import.meta.url)
 const __dirname = dirname(fileName)
 
@@ -69,17 +70,35 @@ const transport = nodemailer.createTransport({
 })
 
 const formatDate = (dateTimeString) => {
-  const dateTime = new Date(dateTimeString);
+  const dateTime = new Date(dateTimeString)
 
-  const year = dateTime.getFullYear();
-  const month = ('0' + (dateTime.getMonth() + 1)).slice(-2);
-  const day = ('0' + dateTime.getDate()).slice(-2);
-  const hours = ('0' + dateTime.getHours()).slice(-2);
-  const minutes = ('0' + dateTime.getMinutes()).slice(-2);
-  const seconds = ('0' + dateTime.getSeconds()).slice(-2);
+  const year = dateTime.getFullYear()
+  const month = ('0' + (dateTime.getMonth() + 1)).slice(-2)
+  const day = ('0' + dateTime.getDate()).slice(-2)
+  const hours = ('0' + dateTime.getHours()).slice(-2)
+  const minutes = ('0' + dateTime.getMinutes()).slice(-2)
+  const seconds = ('0' + dateTime.getSeconds()).slice(-2)
 
-  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
-};
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
+}
 
+function generateProducts ({ numOfProducts = 50 }) {
+  const products = []
+  for (let i = 0; i < numOfProducts; i++) {
+    const product = {
+      title: faker.commerce.productName(),
+      price: Number(faker.commerce.price()),
+      category: faker.commerce.department(),
+      thumbnails: [`${faker.image.url()}.png`, `${faker.image.url()}.png`, `${faker.image.url()}.png`],
+      description: faker.commerce.productDescription(),
+      code: faker.string.nanoid(5),
+      stock: faker.number.int({ min: 1, max: 50 }),
+      status: faker.datatype.boolean(),
+      _id: faker.database.mongodbObjectId()
+    }
+    products.push(product)
+  }
+  return products
+}
 
-export { __dirname, patterns, getLink, createHash, isValidPassword, generateToken, randomString, transport, formatDate }
+export { __dirname, patterns, getLink, createHash, isValidPassword, generateToken, randomString, transport, formatDate, generateProducts }
