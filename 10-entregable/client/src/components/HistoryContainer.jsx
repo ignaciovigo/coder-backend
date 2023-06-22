@@ -5,7 +5,7 @@ import { HiChevronDown, HiRefresh } from 'react-icons/hi';
 export default function HistoryContainer() {
   const [ticketsData, setTicketsData] = useState([]);
   const [error, setError] = useState(null);
-
+ 
   const getData = async () => {
     try {
       const data = await fetch(CONSTANTS.USER_TICKETS_URL, {

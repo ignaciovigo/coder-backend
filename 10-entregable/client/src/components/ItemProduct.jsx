@@ -44,7 +44,7 @@ export default function ItemProduct({ product, role, refreshProducts }) {
       })
       const resp = await result.json()
       if(resp.status === 'success'){
-        refreshProducts()
+        refreshProducts({search:''})
         toast.success(resp.message)
       } else{
         throw resp

@@ -14,7 +14,7 @@ export default class ProductManagerMongo {
   // returns a list of documents according to the indicated search
   async getProducts ({ limit = 10, page = 1, sort = null, query }) {
     try {
-      const inputQuery = query ? { category: query, stock: { $gt: 0 } } : {}
+      const inputQuery = query ? { $or: [{ category: { $regex: '^' + query, $options: 'i' } }, { title: { $regex: '^' + query, $options: 'i' } }], stock: { $gt: 0 } } : {}
       const result = await productModel.paginate(inputQuery, { limit, page, sort: { price: sort }, lean: true })
       return result
     } catch (error) {

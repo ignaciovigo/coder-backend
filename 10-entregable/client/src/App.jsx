@@ -27,7 +27,7 @@ function App() {
             <ProtectedRoute>
               <Suspense fallback={<Loading />}>
                 <CartProvider>
-                  <Main />
+                    <Main />
                 </CartProvider>
               </Suspense>
             </ProtectedRoute>
