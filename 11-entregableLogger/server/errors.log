@@ -1,0 +1,11 @@
+[2023-06-26T23:36:04.307Z] warning: Could not register the user reason: users validation failed: email: The email is not valid
+[2023-06-26T23:36:10.649Z] warning: Could not register the user reason: users validation failed: email: The email is not valid
+[2023-06-26T23:54:22.449Z] warning: This is a warning logger
+[2023-06-26T23:54:22.451Z] error: This is a error logger
+[2023-06-26T23:54:22.451Z] fatal: This is a fatal logger
+[2023-06-26T23:54:30.163Z] warning: This is a warning logger
+[2023-06-26T23:54:30.163Z] error: This is a error logger
+[2023-06-26T23:54:30.163Z] fatal: This is a fatal logger
+[2023-06-26T23:54:35.866Z] warning: This is a warning logger
+[2023-06-26T23:54:35.866Z] error: This is a error logger
+[2023-06-26T23:54:35.867Z] fatal: This is a fatal logger
