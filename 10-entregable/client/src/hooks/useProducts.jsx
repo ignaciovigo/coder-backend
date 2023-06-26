@@ -8,7 +8,7 @@ export default function useProducts({search}) {
   const [prevLink, setPrevLink] = useState("");
   const [nextLink, setNextLink] = useState("");
   const [currentPage, setCurrentPage] = useState('');
-  const prevSearch = useRef(search)
+  const prevSearch = useRef(search)  
 
   const getProducts = useCallback(async ({search, link}) => {
     if(prevSearch.current === search && prevSearch.current != '') return
@@ -17,10 +17,10 @@ export default function useProducts({search}) {
       prevSearch.current = search
       const resp = await searchProducts({ search, newURL: link })
       if(resp.payload.docs.length > 0){
+        setProducts(resp.payload.docs);
+        setCurrentPage(resp.payload.page);
         setPrevLink(resp.payload.prevLink || "");
         setNextLink(resp.payload.nextLink || "");
-        setCurrentPage(resp.payload.page);
-        setProducts(resp.payload.docs);
       } else{
         return 
       }

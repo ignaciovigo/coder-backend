@@ -3,7 +3,6 @@ import useCart from "../hooks/useCart";
 import { HiTrash } from "react-icons/hi";
 import CONSTANTS from "../constants/constants";
 import { toast } from "react-hot-toast";
-import useProducts from "../hooks/useProducts";
 
 export default function ItemProduct({ product, role, refreshProducts }) {
   const { addToCart } = useCart();
@@ -44,7 +43,7 @@ export default function ItemProduct({ product, role, refreshProducts }) {
       })
       const resp = await result.json()
       if(resp.status === 'success'){
-        refreshProducts({search:''})
+        refreshProducts()
         toast.success(resp.message)
       } else{
         throw resp
@@ -68,7 +67,6 @@ export default function ItemProduct({ product, role, refreshProducts }) {
          )
         }
       </div>
-      <p className='text-gray-600 mb-4 break-words overflow-y-scroll max-h-24'>{description}</p>
       <div className='grid grid-cols-3 gap-2'>
         {thumbnails.map((thumbnail, index) => (
           <img
@@ -79,6 +77,7 @@ export default function ItemProduct({ product, role, refreshProducts }) {
           />
         ))}
       </div>
+      <p className='text-gray-600 mb-4 break-words overflow-y-scroll max-h-24'>{description}</p>
       <p className='text-gray-500 text-sm'>Stock: {stock}</p>
       <p className='text-gray-500 text-sm'>Price: ${price}</p>
       <p className='text-gray-500 text-sm'>Category: {category}</p>
