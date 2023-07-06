@@ -5,3 +5,5 @@
 /proyecto
 /client-shopfast
 /**/**/node_modules
+
+!practicaIntegradora3/**/.env*
