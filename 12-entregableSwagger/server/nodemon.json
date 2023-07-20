@@ -1,0 +1,4 @@
+{
+  "watch": ["/src/*"],
+  "ext": "json,js,hbs,html,yaml,yml" 
+}

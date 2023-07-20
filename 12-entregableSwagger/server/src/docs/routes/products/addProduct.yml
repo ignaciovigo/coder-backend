@@ -1,0 +1,79 @@
+paths:
+  /api/products:
+    post:
+      summary: Add a new product
+      tags:
+        - Products
+      description: Creates a new product with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: The title of the product.
+                description:
+                  type: string
+                  description: The description of the product.
+                price:
+                  type: number
+                  description: The price of the product.
+                thumbnails:
+                  type: array
+                  items:
+                    type: string
+                  description: >
+                    An array containing image URLs for product thumbnails.
+                    Each URL should point to a valid image file (jpg, jpeg, gif, png, svg).
+                code:
+                  type: string
+                  description: The unique code identifying the product.
+                stock:
+                  type: number
+                  description: The stock quantity of the product.
+                status:
+                  type: boolean
+                  description: The status of the product (active or inactive).
+                category:
+                  type: string
+                  description: The category of the product.
+              required:
+                - title
+                - description
+                - price
+                - thumbnails
+                - code
+                - stock
+                - status
+                - category
+              example:
+                title: "Luxurious Granite Pants"
+                description: "These pants are made of high-quality granite fabric, providing durability and comfort."
+                price: 46.99
+                thumbnails:
+                  - "https://example.com/images/pants-front.jpg"
+                  - "https://example.com/images/pants-back.jpg"
+                code: "LGP-2023"
+                stock: 50
+                status: true
+                category: "Apparel"
+      responses:
+        '200':
+          description: Product added successfully with its ID in the response body.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: The ID of the newly created product.
+        '400':
+          description: Bad request. One or more required fields are missing or invalid.
+        '401':
+          description: Unauthorized token.
+        '500':
+          description: Internal server error. Failed to add the product.

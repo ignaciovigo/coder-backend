@@ -1,0 +1,37 @@
+paths:
+  /api/carts/{cid}/purchase:
+    post:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the cart for the purchase.
+      summary: Purchase products in the cart
+      tags:
+        - Cart
+      description: Purchases the products in the specified cart.
+      responses:
+        '200':
+          description: Purchase successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the response (success, error, etc.).
+                  message:
+                    type: string
+                    description: The message indicating the result of the operation.
+                example:
+                  status: "success"
+                  message: "Purchase successful"
+        '400':
+          description: Bad request. The provided cart ID is invalid or Cart not found or cart is empty .
+        '403':
+          description: Unauthorized.
+        '500':
+          description: Internal server error. Failed to complete the purchase.

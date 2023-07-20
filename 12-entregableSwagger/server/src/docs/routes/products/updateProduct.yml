@@ -1,0 +1,70 @@
+paths:
+  /api/products/{pid}:
+    parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the product to update.
+    put:
+      summary: Update a product by ID
+      tags:
+        - Products
+      description: Updates an existing product with new details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Object containing the fields to update for the product.
+              properties:
+                title:
+                  type: string
+                  description: The updated title of the product.
+                description:
+                  type: string
+                  description: The updated description of the product.
+                price:
+                  type: number
+                  description: The updated price of the product.
+                thumbnails:
+                  type: array
+                  items:
+                    type: string
+                  description: >
+                    An array containing updated image URLs for product thumbnails.
+                    Each URL should point to a valid image file (jpg, jpeg, gif, png, svg).
+                code:
+                  type: string
+                  description: The updated unique code identifying the product.
+                stock:
+                  type: number
+                  description: The updated stock quantity of the product.
+                status:
+                  type: boolean
+                  description: The updated status of the product (active or inactive).
+                category:
+                  type: string
+                  description: The updated category of the product.
+              example:
+                title: "Updated Luxury Granite Pants"
+                description: "Updated description for the granite pants."
+                price: 59.99
+                thumbnails:
+                  - "https://example.com/images/updated-pants-front.jpg"
+                  - "https://example.com/images/updated-pants-back.jpg"
+                code: "LGP-2024"
+                stock: 100
+                status: true
+                category: "Apparel"  
+      responses:
+        '200':
+          description: Product updated successfully.
+        '400':
+          description: Bad request. The request body is missing or contains invalid data.
+        '404':
+          description: Product not found.
+        '500':
+          description: Internal server error. Failed to update the product.

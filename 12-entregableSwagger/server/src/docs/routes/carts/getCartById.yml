@@ -1,0 +1,27 @@
+paths:
+  /api/carts/{cid}:
+    get:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the cart to retrieve.
+      summary: Retrieve a cart by ID
+      tags:
+        - Cart
+      description: Returns a cart based on the provided ID.
+      responses:
+        '200':
+          description: Successful response with the cart details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        '400':
+          description: Bad request. The provided cart ID is invalid or cart not found.
+        '403':
+          description: Unauthorized token.
+        '500':
+          description: Internal server error. Failed to retrieve the cart.

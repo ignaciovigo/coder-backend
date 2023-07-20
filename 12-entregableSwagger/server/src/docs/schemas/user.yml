@@ -1,0 +1,58 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id given from mongo.
+        firstName:
+          type: string
+          pattern: '^[A-Za-z]+$'
+          description: The first name of the user. Only letters are allowed.
+        lastName:
+          type: string
+          pattern: '^[A-Za-z]+$'
+          description: The last name of the user. Only letters are allowed.
+        fullName:
+          type: string
+          description: The full name of the user.
+        email:
+          type: string
+          format: email
+          description: The email address of the user.
+        password:
+          type: string
+          description: The password of the user.
+        age:
+          type: number
+          minimum: 16
+          maximum: 90
+          description: The age of the user. Must be between 16 and 90.
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - USER
+          default: USER
+          description: The role of the user. Can be 'ADMIN' or 'USER'.
+        githubId:
+          type: string
+          description: The GitHub ID of the user.
+        cartId:
+          type: ObjectId
+          description: The reference ID of the user's cart from the 'carts' collection.
+      required:
+        - firstName
+        - lastName
+        - email
+      example:
+        _id: "6499d51dca6ee876bc1e957a"
+        firstName: "John"
+        lastName: "Doe"
+        fullName: "John Doe"
+        email: "johndoe@example.com"
+        age: 25
+        role: "USER"
+        githubId: "johndoe123"
+        password: "53Lspo5mñ32m09u10sa0"

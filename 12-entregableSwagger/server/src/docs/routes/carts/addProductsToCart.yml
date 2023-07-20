@@ -1,0 +1,78 @@
+paths:
+  /api/carts/{cid}:
+    put:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the cart to add products to.
+      summary: Add products to a cart by ID
+      tags:
+        - Cart
+      description: Adds products to an existing cart based on the provided ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  product:
+                    type: string
+                    description: The ID of the product to add to the cart.
+                  quantity:
+                    type: integer
+                    description: The quantity of the product to add to the cart.
+                required:
+                  - product
+                  - quantity
+            example:
+              - product: "644eb0fa82b977239a290077"
+                quantity: 2
+              - product: "644eb0fa82b977239a290076"
+                quantity: 2
+      responses:
+        '200':
+          description: Products successfully added to the cart.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the response (success, error, etc.).
+                  payload:
+                    type: object
+                    description: The payload containing the updated cart details.
+                    properties:
+                      _id:
+                        type: string
+                        description: The ID of the cart.
+                      products:
+                        type: array
+                        description: An array of products in the cart.
+                        items:
+                          type: object
+                          properties:
+                            product:
+                              type: object
+                              nullable: true
+                              description: The product details, if available, otherwise null.
+                            quantity:
+                              type: integer
+                              description: The updated quantity of the product in the cart.
+                            _id:
+                              type: string
+                              description: The ID of the product entry in the cart.
+                      __v:
+                        type: integer
+                        description: The version number of the cart object.
+        '400':
+          description: Bad request. The provided cart ID is invalid or the request body is not an array.
+        '500':
+          description: Internal server error. Failed to add products to the cart.

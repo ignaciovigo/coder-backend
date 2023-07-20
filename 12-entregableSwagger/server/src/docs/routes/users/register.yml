@@ -1,0 +1,50 @@
+paths:
+  /api/users/register:
+    post:
+      summary: Register a new user
+      tags:
+        - User
+      description: Registers a new user with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  description: The first name of the user.
+                lastName:
+                  type: string
+                  description: The last name of the user.
+                email:
+                  type: string
+                  format: email
+                  description: The email address of the user.
+                age:
+                  type: integer
+                  minimum: 1
+                  description: The age of the user.
+                password:
+                  type: string
+                  description: The password of the user.
+              required:
+                - firstName
+                - lastName
+                - email
+                - age
+                - password
+              example:
+                firstName: John
+                lastName: Doe
+                email: johndoe@example.com
+                age: 25
+                password: mysecretpassword
+      responses:
+        '200':
+          description: User created successfully.
+        '400':
+          description: Bad request. One or more required fields are missing or incomplete or The email is already in use.
+        '500':
+          description: Internal server error. Failed to register the user.

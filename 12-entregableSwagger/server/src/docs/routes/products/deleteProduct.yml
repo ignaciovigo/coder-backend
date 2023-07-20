@@ -1,0 +1,21 @@
+paths:
+  /api/products/{pid}:
+    delete:
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the product to delete.
+      summary: Delete a product by ID
+      tags:
+        - Products
+      description: Deletes an existing product based on the provided ID.
+      responses:
+        '200':
+          description: Product successfully deleted.
+        '400':
+          description: Product not found.
+        '500':
+          description: Internal server error. Failed to delete the product.
