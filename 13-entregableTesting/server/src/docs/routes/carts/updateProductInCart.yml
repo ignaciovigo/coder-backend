@@ -1,0 +1,76 @@
+paths:
+  /api/carts/{cid}/product/{pid}:
+    put:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the cart containing the product.
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the product to update in the cart.
+      summary: Update product quantity in cart
+      tags:
+        - Cart
+      description: Updates the quantity of a product in the specified cart.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: The updated quantity of the product in the cart.
+              required:
+                - quantity
+              example:
+                quantity: 3
+      responses:
+        '200':
+          description: Product quantity updated successfully in the cart.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the response (success, error, etc.).
+                  payload:
+                    type: object
+                    description: The payload containing the updated cart details.
+                    properties:
+                      _id:
+                        type: string
+                        description: The ID of the cart.
+                      products:
+                        type: array
+                        description: An array of products in the cart.
+                        items:
+                          type: object
+                          properties:
+                            product:
+                              type: string
+                              description: The ID of the product in the cart.
+                            quantity:
+                              type: integer
+                              description: The updated quantity of the product in the cart.
+                            _id:
+                              type: string
+                              description: The ID of the product entry in the cart.
+                      __v:
+                        type: integer
+                        description: The version number of the cart object.
+        '400':
+          description: Bad request. The provided cart ID or product ID is invalid, or the request body is missing or contains invalid data or Cart or product not found.
+        '403':
+          description: Unauthorized.
+        '500':
+          description: Internal server error. Failed to update the product quantity in the cart.

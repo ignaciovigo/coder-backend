@@ -1,0 +1,43 @@
+paths:
+  /api/carts/{cid}/product/{pid}:
+    delete:
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the cart from which the product will be removed.
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the product to remove from the cart.
+      tags:
+        - Cart
+      summary: Remove a specified product from a cart
+      description: Removes a specified product from the specified cart.
+      responses:
+        '200':
+          description: Product successfully removed from the cart.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: The status of the response (success, error, etc.).
+                  message:
+                    type: string
+                    description: The message indicating the result of the operation.
+                example:
+                  status: "success"
+                  message: "Product removed from the cart"
+        '400':
+          description: Bad request. The provided cart ID or product ID is invalid or Product or cart not found.
+        '403':
+          description: Unauthorized.
+        '500':
+          description: Internal server error. Failed to remove the product from the cart.

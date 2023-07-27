@@ -1,0 +1,12 @@
+paths:
+  /api/carts:
+    post:
+      summary: Create a new cart
+      tags:
+        - Cart
+      description: Creates a new cart.
+      responses:
+        '200':
+          description: Cart created successfully.
+        '500':
+          description: Internal server error. Failed to create the cart.

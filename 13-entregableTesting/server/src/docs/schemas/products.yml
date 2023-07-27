@@ -1,0 +1,56 @@
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id given from mongo.
+        title:
+          type: string
+          description: The title of the product.
+        description:
+         type: string
+         description: The description of the product.
+        stock:
+         type: number
+         description: The stock quantity of the product.
+        price:
+          type: number
+          description: The price of the product.
+        category:
+          type: string
+          description: The category of the product.
+        thumbnails:
+          type: array
+          items:
+            type: string
+          description: >
+            An array containing image URLs for product thumbnails.
+            Each URL should point to a valid image file (jpg, jpeg, gif, png, svg).
+        code:
+          type: string
+          unique: true
+          description: The unique code identifying the product.
+        status:
+          type: boolean
+          default: true
+          description: The status of the product (active or inactive).
+      required:
+        - title
+        - description
+        - stock
+        - price
+        - category
+        - thumbnails
+        - code
+      example:
+        _id: "6499d51dca6ee876bc1e957a"
+        stock: 0
+        description: "The Football Is Good For Training And Recreational Purposes"
+        title: "Luxurious Granite Pants"
+        price: 46
+        category: "Industrial"
+        thumbnails: ["https://picsum.photos/seed/TQUJQRQU/640/480.png","https://loremflickr.com/640/480?lock=2388044877398016.png","https://picsum.photos/seed/9RE5YXb/640/480.png"]
+        status: false
+        code: "WOXsi"

@@ -1,0 +1,28 @@
+paths:
+  /api/products/{pid}:
+    get:
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the product to retrieve.
+      summary: Retrieve a single product by ID
+      tags:
+        - Products
+      description: Returns a single product based on the provided ID.
+      responses:
+        '200':
+          description: Successful response with the product details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Product not found or the id provided must be a string.
+        '401':
+          description: Unauthorized token.  
+        '500':
+          description: Server internal error.
+        

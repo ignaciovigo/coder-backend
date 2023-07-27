@@ -1,0 +1,28 @@
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: ObjectId
+                description: The reference ID of the product from the 'products' collection.
+              quantity:
+                type: number
+                default: 1
+                description: The quantity of the product in the cart.
+          description: >
+            An array containing products and their quantities in the cart.
+            Each product is represented by its reference ID in the 'products' collection.
+      required:
+        - products
+      example:
+        products:
+          - product: "6499d51dca6ee876bc1e957a"
+            quantity: 2
+          - product: "74c3a12c08aa812b8c4d6e21"
+            quantity: 1
