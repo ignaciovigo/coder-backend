@@ -1,0 +1,52 @@
+{
+  "name": "practica-integradora4-modulo3-loggers-swagger-testing",
+  "version": "1.0.0",
+  "description": "Practica integradora para unir todas lo desarrollado en el curso hasta ahora.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "keywords": [
+    "express-custom",
+    "handlebars",
+    "nodejs",
+    "mongodb",
+    "passport",
+    "session",
+    "jwt",
+    "email",
+    "dotenv",
+    "singleton",
+    "swagger",
+    "loggers",
+    "testing"
+  ],
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "bcrypt": "^5.1.0",
+    "commander": "^10.0.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.7",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.0",
+    "nodemailer": "^6.9.1",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
+  }
+}

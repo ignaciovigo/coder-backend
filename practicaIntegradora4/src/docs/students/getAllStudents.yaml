@@ -1,0 +1,18 @@
+paths:
+  /api/students:
+    get:
+      summary: Get all the students
+      tags:
+        - students
+      description: Returns an array with all the students stored in the database.
+      responses:
+        '200':
+          description: Successful response with a list of students.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Students'
+        "500":
+          description: No se pudo obtener los estudiantes.

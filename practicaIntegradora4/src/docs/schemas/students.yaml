@@ -1,0 +1,48 @@
+components:
+  schemas:
+    Students:
+      type: object
+      properties:
+        _id: 
+          type: ObjectId
+          description: 'Id given from mongodb'
+        name:
+          type: string
+          description: The name of the user
+        lastName:
+            type: string
+            description: The last name of the user.
+        email:
+            type: string
+            format: email
+            description: The email address of the user.
+        age:
+            type: number
+            description: The age of the user.
+        password:
+            type: string
+            description: The password of the user.
+        role:
+            type: string
+            enum:
+              - admin
+              - user
+            default: user
+        courses:
+          type: array
+          items:
+            type: object
+            properties:
+              course:
+                type: ObjectId
+                description: The reference ID of the product from the 'courses' collection.
+          description: >
+            An array containing the courses to which the student belongs
+            Each course is represented by its reference ID in the 'courses' collection.
+      required:
+        - name
+        - email
+        - lastName
+        - password
+        - age
+      

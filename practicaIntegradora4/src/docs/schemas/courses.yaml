@@ -1,0 +1,30 @@
+components:
+  schemas:
+    Courses:
+      type: object
+      properties:
+        _id: 
+          type: ObjectId
+          description: 'Id given from mongodb'
+        title:
+            type: string
+            description: The title of the course.
+        description:
+            type: string
+            description: The description of the course.
+        teacherName:
+          type: string
+          description: Teacher of the course
+        students:
+          type: array
+          items:
+            type: string
+            description: Name of a student
+          description: An array containing the names od the students 
+      required:
+        - name
+        - email
+        - lastName
+        - password
+        - age
+      
